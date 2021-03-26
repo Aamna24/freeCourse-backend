@@ -370,7 +370,7 @@ transporter.sendMail(mailOption,function(err,res){
     }
     
   } catch (error) {
-    
+    return res.end(error)
   }
 })
 

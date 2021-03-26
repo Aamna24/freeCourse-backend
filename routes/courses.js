@@ -162,39 +162,5 @@ catch (error) {
  ) 
 
 
- route.get("/convert", (req,res)=>{
-   const {filename} = req.query;
-   const inputPath= path.resolve(__dirname, `./files/${filename}`)
-   const outputPath= path.resolve(__dirname, `./files/${filename}.pdf`)
-  
-
-   const converToPDF = async()=>{
-    const pdfdoc = await PDFNet.PDFDoc.create();
-    await pdfdoc.initSecurityHandler();
-    await PDFNet.Convert.toPdf(pdfdoc, inputPath);
-    pdfdoc.save(outputPath,PDFNet.SDFDoc.SaveOptions.e_linearized);
-
-   }
-
-   PDFNet.runWithCleanup(converToPDF).then(()=>{
-    fs.readFile(outputPath, (err,data)=>{
-      if(err){
-        res.statusCode = 500;
-        res.end(err)
-      }
-      else{
-        res.setHeader("ContentType","application/pdf");
-        res.end(data)
-      }
-    })
-   }).catch(err=>{
-     res.statusCode = 500;
-     res.end(err)
-   })
-
- })
-  
-
-
 
 module.exports = route;
