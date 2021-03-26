@@ -15,6 +15,8 @@ var logger = require('morgan');
 const dotenv = require('dotenv')
 dotenv.config()
 
+console.log('NODE_ENV: ' + config.util.getEnv('NODE_ENV'));
+
 
 
 
