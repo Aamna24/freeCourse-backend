@@ -12,17 +12,13 @@ const Index=require("./routes/index")
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
-const cron = require('node-cron');
-var nodemailer = require("nodemailer")
-const Details = require("./models/details")
-const Forms = require("./models/forms");
-const schedule = require('node-schedule');
-const { PDFDocument } = require('pdf-lib');
+const dotenv = require('dotenv')
+dotenv.config()
 
 
 
-const port = 61500;
+
+const port = process.env.PORT || 61500;
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
