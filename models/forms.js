@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const form = mongoose.Schema({
-  _id: new mongoose.Schema.Types.ObjectId(),
+ 
   appliedCourse: { type: String, required: true },
   highestQualificationLevel: { type: String, required: true },
   age19orOlder: {type: String, required: true},

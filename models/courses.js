@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const course = mongoose.Schema({
-  _id: new mongoose.Schema.Types.ObjectId(),
+ 
   courseTitle: { type: String, required: true },
   courseDescription: { type: String, required: true },
   courseContent:{type:String, required: true},
