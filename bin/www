@@ -20,6 +20,17 @@ var port = normalizePort(process.env.PORT || '3000');
  */
 
 var server = http.createServer(app);
+server.setTimeout(3000,()=>{
+  
+  console.log(
+    "Socket is destroyed due to timeout")
+  
+    // Closing server 
+    // by using close() api
+    server.close(()=>{
+        console.log("Server is closed")
+    })
+})
 
 /**
  * Listen on provided port, on all network interfaces.

@@ -20,7 +20,10 @@ const Forms = require("./models/forms");
 const schedule = require('node-schedule');
 const { PDFDocument } = require('pdf-lib');
 
-const port = 61500;
+
+
+//const port = 61500;
+const port= process.env.PORT || 61500;
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
