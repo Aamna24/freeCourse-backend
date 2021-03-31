@@ -1826,6 +1826,29 @@ route.post("/ids",upload.single('idPic'),  async (req, res) =>{
       
 });
 
+//Get all the forms route
+route.get("/", async (req, res) => {
+  try {
+    const formData = await Form.find();
+    if (formData.length === 0) {
+      res.status(200).send({
+        success: true,
+        data: formData,
+        message: "No Form registered"
+      });
+    } else {
+      res.status(200).send({
+        success: true,
+        data: formData
+      });
+    }
+  } catch (err) {
+    res.status(503).send({
+      success: false,
+      message: "Server error"
+    });
+  }
+});
 
 
 module.exports = route;
