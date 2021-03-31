@@ -5,6 +5,7 @@ const User = require("../models/users");
 const jwt = require("jsonwebtoken");
 const Details = require("../models/details")
 var nodemailer = require("nodemailer")
+const moment = require('moment')
 
 //Get all the user route
 route.get("/", async (req, res) => {
@@ -108,7 +109,8 @@ route.post("/registerDetails", async (req, res) => {
     lastName,
     email,
     mobile,
-    daysPassed: 0
+    daysPassed: 0,
+    dateCreated:  moment().format('LL')
 
   });
 
