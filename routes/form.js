@@ -48,7 +48,7 @@ const upload = multer({ storage: storage, fileFilter: fileFilter });
 
 //Register the user route
 route.post("/submit",  async (req, res) => {
-    const { appliedCourse,highestQualificationLevel, age19orOlder, residencyStatus,livingStatus,proof,title,firstName, lastName
+    const { appliedCourse,highestQualificationLevel, age19orOlder, residencyStatus,livingStatus,title,firstName, lastName
 , gender, dob,addLine1,
 age,
 city,
@@ -97,7 +97,7 @@ employerAddress,
       age19orOlder,
       residencyStatus,
       livingStatus,
-      proof,
+     
       title,
       firstName,
       lastName,

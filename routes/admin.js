@@ -3,7 +3,7 @@ const route = express.Router();
 const mongoose = require("mongoose");
 const Admin = require("../models/admin");
 const jwt = require("jsonwebtoken");
-
+const College = require("../models/college")
 //Get all the user route
 route.get("/", async (req, res) => {
     try {
@@ -95,6 +95,97 @@ route.post("/login", async (req, res) => {
     res.status(503).send({
       success: false,
       message: err
+    });
+  }
+});
+
+// enter colllege data
+route.post("/college",async(req,res)=>{
+  const newCollege = new College({
+    _id: new mongoose.Types.ObjectId(),
+    collegeName:"Vision West Notthinghamshire College",
+    contractAmount:0,
+    pricePerApp:0,
+    contractValue:0,
+    formsDelievered:0,
+    remainingForms:0,
+    revenue:0
+  });
+
+  newCollege
+    .save()
+    .then(response => {
+      res.status(200).send({
+        success: true,
+        message: "College Successfully Added",
+        data: response
+      });
+    })
+    .catch(err => {
+      res.status(400).send({
+        success: false,
+        message: "College already registered",
+        Error: err
+      });
+    });
+})
+
+// edit college info
+route.patch("/college/:id",async(req,res)=>{
+  var {contractAmount,pricePerApp} = req.body;
+  const {id} = req.params
+  try {
+    const result = await College.updateOne({
+      _id: id
+    }, {$set:{
+      contractAmount: contractAmount,
+      pricePerApp: pricePerApp,
+      contractValue: contractAmount * pricePerApp
+    }
+      })
+    if (result.length === 0) {
+      res.status(200).send({
+        success: true,
+        data: result,
+        message: "No College data Updated"
+      });
+    } else {
+      res.status(200).send({
+        success: true,
+        data: result
+      });
+    }
+    
+  } catch (error) {
+    res.status(503).send({
+      success: false,
+      message: "Server error"
+    });
+  }
+
+})
+
+
+//get college data
+route.get("/collegedata", async (req, res) => {
+  try {
+    const collegeData = await College.find();
+    if (collegeData.length === 0) {
+      res.status(200).send({
+        success: true,
+        data: collegeData,
+        message: "No Admin registered"
+      });
+    } else {
+      res.status(200).send({
+        success: true,
+        data: collegeData
+      });
+    }
+  } catch (err) {
+    res.status(503).send({
+      success: false,
+      message: "Server error"
     });
   }
 });

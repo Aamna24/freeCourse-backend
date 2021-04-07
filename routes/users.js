@@ -104,7 +104,7 @@ route.post("/registerDetails", async (req, res) => {
   const { firstName, lastName, email, mobile } = req.body;
 
   const newDetail = new Details({
-    _id: new mongoose.Types.ObjectId(),
+    
     firstName,
     lastName,
     email,
