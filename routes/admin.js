@@ -2,6 +2,7 @@ const express = require("express");
 const route = express.Router();
 const mongoose = require("mongoose");
 const Admin = require("../models/admin");
+const Form = require("../models/forms")
 const jwt = require("jsonwebtoken");
 const College = require("../models/college")
 //Get all the user route
@@ -134,13 +135,17 @@ route.post("/college",async(req,res)=>{
 route.patch("/college/:id",async(req,res)=>{
   var {contractAmount,pricePerApp} = req.body;
   const {id} = req.params
+
   try {
+    const forms = await Form.find();
+    //const totalForm = forms.length
     const result = await College.updateOne({
       _id: id
     }, {$set:{
       contractAmount: contractAmount,
       pricePerApp: pricePerApp,
-      contractValue: contractAmount * pricePerApp
+      contractValue: contractAmount * pricePerApp,
+    
     }
       })
     if (result.length === 0) {

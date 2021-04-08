@@ -8,6 +8,7 @@ const Admin = require("./routes/admin");
 const Course = require("./routes/courses");
 const Form = require("./routes/form");
 const Forms = require("./models/forms");
+const College = require("./models/college")
 const User=require("./routes/users")
 const Index=require("./routes/index")
 var path = require('path');
@@ -61,6 +62,44 @@ app.use((req, res, next) => {
   next();
 });
 
+// updating college revenue every minute
+cron.schedule('* * * * *', async(req,res) => {
+  console.log("running college")
+  try{
+    const form = await Forms.find();
+    const totalForm = form.length
+    const college = await College.find();
+    console.log(totalForm)
+    console.log(college)
+    const id = college[0]._id
+    console.log(id)
+    const result = await College.updateOne({
+      _id: id
+    }, {$set:{
+      formsDelievered: totalForm,
+      remainingForms: college[0].contractAmount - totalForm,
+      revenue: totalForm * college[0].pricePerApp
+    }
+      })
+    if (result.length === 0) {
+      res.status(200).send({
+        success: true,
+        data: result,
+        message: "No College data Updated"
+      });
+    } else {
+      res.status(200).send({
+        success: true,
+        data: result
+      });
+    }
+    
+  
+  }
+  catch(err){
+
+  }
+});
 //---------------------
 
 cron.schedule('12 19 * * *', async(req,res)=> {

@@ -7,7 +7,6 @@ const form = mongoose.Schema({
   age19orOlder: {type: String, required: true},
   residencyStatus:{type: String, required: true},
   livingStatus:{type: String, required: true},
-  proof: {type: String, required: true},
   title:{type: String, required: true},
   firstName:{type:String, required: true},
   lastName:{type:String, required: true},
