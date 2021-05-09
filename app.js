@@ -7,9 +7,10 @@ const cors = require("cors");
 const Admin = require("./routes/admin");
 const Course = require("./routes/courses");
 const Form = require("./routes/form");
-const Forms = require("./models/forms");
+const Forms = require("./models/form");
 const College = require("./models/college")
 const User=require("./routes/users")
+
 const Index=require("./routes/index")
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -64,15 +65,13 @@ app.use((req, res, next) => {
 
 // updating college revenue every minute
 cron.schedule('* * * * *', async(req,res) => {
-  console.log("running college")
   try{
     const form = await Forms.find();
     const totalForm = form.length
     const college = await College.find();
-    console.log(totalForm)
-    console.log(college)
+  
     const id = college[0]._id
-    console.log(id)
+   
     const result = await College.updateOne({
       _id: id
     }, {$set:{

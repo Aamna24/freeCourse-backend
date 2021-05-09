@@ -2,7 +2,7 @@ const express = require("express");
 const route = express.Router();
 const mongoose = require("mongoose");
 const Admin = require("../models/admin");
-const Form = require("../models/forms")
+const Form = require("../models/form")
 const jwt = require("jsonwebtoken");
 const College = require("../models/college")
 //Get all the user route
