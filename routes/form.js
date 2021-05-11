@@ -264,5 +264,41 @@ route.get("/:id", async (req, res) => {
   }
 });
 
+// send email from students list page
+route.post('/email', async(req,res)=>{
+  const {email, subject, message}= req.body;
+   
+try{
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.EMAIL_ID,
+      pass: process.env.EMAIL_PASS
+    }
+  });
+  let mailOption={
+    from: process.env.EMAIL_ID,
+    to: email,
+    subject: subject,
+    
+  html: `${message}`
+  
+  
+  }
+  //send email
+  transporter.sendMail(mailOption,function(err,res){
+  if(err){
+    console.log("error ",err)
+  }
+  else{
+    console.log("email sent")
+  }
+})
+res.status(200).send("email sent")
+}
+catch(err){
+  res.status(400).send("Email Error")
+}
+})
 
 module.exports = route;
