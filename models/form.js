@@ -34,6 +34,16 @@ const FormSchema = mongoose.Schema({
         ph:{type:String},
         unemployedLength:{type:String},
         benefits:{type:String},
+        areYou:{type:String},
+        dValue1:{type:String},
+        dValue2:{type:String},
+        dValue3:{type:String},
+        dValue4:{type:String},
+        dValue5:{type:String},
+        dValue6:{type:String},
+        dValue7:{type:String},
+        dValue8:{type:String},
+        dValue9:{type:String}
 
     },
     qualificationDetails:{
@@ -44,12 +54,31 @@ const FormSchema = mongoose.Schema({
     oppDetails:{
         ethnicOrigin:{type:String},
         disabilities:{type:String},
+        dValue1:{type:String},
+        dValue2:{type:String},
+        dValue3:{type:String},
+        dValue4:{type:String},
+        dValue5:{type:String},
+        dValue6:{type:String},
+        dValue7:{type:String},
+        dValue8:{type:String},
+        dValue9:{type:String},
+        dValue10:{type:String},
+        dValue11:{type:String},
+        dValue12:{type:String},
+        dValue13:{type:String},
+        dValue14:{type:String},
+        dValue15:{type:String},
+        dValue16:{type:String},
+        dValue17:{type:String},
+        dValue18:{type:String},
         wheelchair:{type:String},
         firstLang:{type:String},
         resident:{type:String},
         nonEEACitizen:{type:String},
         criminalConv:{type:String}
     },
+    
     declaration:{
         prefContact:{type:String}
     },

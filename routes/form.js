@@ -301,4 +301,39 @@ catch(err){
 }
 })
 
+
+route.post('/upload-array', upload.array('image') ,async(req,res)=>{
+ 
+  const uploader = async (path) => await cloudinary.uploader.upload(path, {
+    public_id: `newFile`,
+    tags: "file",
+  });
+  if (req.method === 'POST') {
+    const urls = []
+    const files = req.files;
+    try {
+      for (const filename of files) {
+        const { path } = filename;
+        console.log("path is",path)
+        const newPath = await uploader(path)
+        console.log("after upload")
+        urls.push(newPath)
+        fs.unlinkSync(path)
+       console.log(path)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+
+    res.status(200).json({
+      message: 'images uploaded successfully',
+      data: urls
+    })
+
+  } else {
+    res.status(405).json({
+      err: `${req.method} method not allowed`
+    })
+  }
+})
 module.exports = route;
