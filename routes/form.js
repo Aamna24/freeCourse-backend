@@ -264,12 +264,12 @@ try{
   var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: process.env.EMAIL_ID,
-      pass: process.env.EMAIL_PASS
+      user: 'fa17-bcs-081@cuilahore.edu.pk',
+      pass: 'FA17-BCS-081'
     }
   });
   let mailOption={
-    from: process.env.EMAIL_ID,
+    from: 'fa17-bcs-081@cuilahore.edu.pk',
     to: email,
     subject: subject,
     
