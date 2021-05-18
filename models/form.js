@@ -20,8 +20,11 @@ const FormSchema = mongoose.Schema({
         postcode:{type: String, },
         telephone:{type:String},
         email:{type:String, required: true},
-        emergencyContactName:{type:String},
         yearsAtAdd:{type:String},
+        
+    },
+    emergencyDetails:{
+        emergencyContactName:{type:String},
         emergencyTelephone:{type:String}
     },
     employmentDetails:{

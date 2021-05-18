@@ -47,7 +47,7 @@ const upload = multer({ storage: storage, fileFilter: fileFilter });
 
 // add form
 route.post('/add',upload.single('signature'), asyncHandler(async (req,res)=>{
-  const {detailsFormData, personalDetails, employmentDetails, qualificationDetails, oppDetails,
+  const {detailsFormData, personalDetails,emergencyDetails, employmentDetails, qualificationDetails, oppDetails,
   declaration} = req.body
   var path = req.body.signature
    try{
@@ -58,7 +58,7 @@ route.post('/add',upload.single('signature'), asyncHandler(async (req,res)=>{
         if(image){
           const newUser = new Form({
               _id: new mongoose.Types.ObjectId(),
-              detailsFormData, personalDetails, employmentDetails, qualificationDetails, oppDetails,
+              detailsFormData, personalDetails,emergencyDetails, employmentDetails, qualificationDetails, oppDetails,
           declaration,
           signature: image&& image.url,
           date: moment().format('LL')
@@ -167,54 +167,46 @@ route.get("/getCitiesName", async (req,res)=>{
   }
 })
 
-route.post("/ids",upload.single('idPic'),  async (req, res) =>{
+route.post('/ids', upload.array('idPic'), async(req,res)=>{
   const {nationalInsNo} = req.body
-  var path = req.file && req.file.path
-  var uniqueFileName = nationalInsNo;
-  try {
-    const image = await cloudinary.uploader.upload(path, {
-      public_id: `id/${uniqueFileName}`,
-      tags: "id",
-    });
-    
-    //fs.unlinkSync(path);
-    
-    if(image){
-      const newID = new ID({
-        _id: new mongoose.Types.ObjectId(),
-        nationalInsNo,
-        idPic: image && image.url,
-       
-      });
-      
-      const response = await newID.save();
-            if (response) {
-              res.status(201).json({
-                success: true,
-                data: response,
-                message: "Item Successfully created",
-              });
-            }
-            else {
-              res.status(501).json({
-                success: false,
-                data: [],
-                message: "Error while creating item",
-              });
-            }
+  const urls=[]
+  const files= req.files
+  let image=''
+  if(req.method==='POST'){
+    try {
+      for (const filename of files) {
+        const { path } = filename;
+        var uniqueFileName = `${nationalInsNo}_${filename.originalname}`;
+        image = await cloudinary.uploader.upload(path, {
+          public_id: `id/${uniqueFileName}`,
+          tags: "id",
+        });
+        urls.push(image)
+        const newID = new ID({
+          _id: new mongoose.Types.ObjectId(),
+          nationalInsNo,
+          idPic: image && image.url,
+          //idPic: uploader && uploader.url
+         
+        });
+         await newID.save();
+        fs.unlinkSync(path)
+      }
+    } catch (error) {
+      console.log(error)
     }
-  } catch (error) {
-    res.status(501).json({
-      success: false,
-      data: [],
-      message: error.message,
-    });
-  }
-  
- 
-      
-});
+    res.status(200).json({
+      message: 'images uploaded successfully',
+      data: urls
+    })
 
+  }
+  else{
+    res.status(405).json({
+      err: `${req.method} method not allowed`
+    })
+  }
+})
 //Get all the forms route
 route.get("/", async (req, res) => {
   try {
@@ -306,7 +298,7 @@ route.post('/upload-array', upload.array('image') ,async(req,res)=>{
  
   const uploader = async (path) => await cloudinary.uploader.upload(path, {
     public_id: `newFile`,
-    tags: "file",
+    tags: "signatures",
   });
   if (req.method === 'POST') {
     const urls = []
@@ -314,12 +306,10 @@ route.post('/upload-array', upload.array('image') ,async(req,res)=>{
     try {
       for (const filename of files) {
         const { path } = filename;
-        console.log("path is",path)
         const newPath = await uploader(path)
-        console.log("after upload")
+
         urls.push(newPath)
         fs.unlinkSync(path)
-       console.log(path)
       }
     } catch (error) {
       console.log(error)
