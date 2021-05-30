@@ -21,6 +21,7 @@ const FormSchema = mongoose.Schema({
         telephone:{type:String},
         email:{type:String, required: true},
         yearsAtAdd:{type:String},
+        nationalInsNo:{type:String}
         
     },
     emergencyDetails:{

@@ -5,7 +5,6 @@ const multer = require("multer");
 const Course = require("../models/courses");
 var fs = require('fs');
 var path = require('path');
-const { PDFNet } = require('@pdftron/pdfnet-node'); 
 var cloudinary = require('cloudinary').v2;
 
 
@@ -118,48 +117,7 @@ catch (error) {
 })
 
 
- route.get("/generate",(req,res)=>{
-   const inputPath = path.resolve(__dirname,"./files/form1.pdf");
-   const outputPath = path.resolve(__dirname,"./files/form1new.pdf");
-
-   const replaceText = async()=>{
-     const pdfdoc = await PDFNet.PDFDoc.createFromFilePath(inputPath);
-     await pdfdoc.initSecurityHandler();
-     const replacer = await PDFNet.ContentReplacer.create()
-     const page= await pdfdoc.getPage(1);
-     
-
-     const name="\u2713"
-     await replacer.addString('lname',name);
-     await replacer.addString('fname','Aamna');
-
-     await replacer.process(page);
-     return pdfdoc.save(outputPath,PDFNet.SDFDoc.SaveOptions.e_linearized);
-   }
-
-   
-   PDFNet.runWithCleanup(replaceText).then(()=>{
-    fs.readFile((outputPath,[err,data])=>{
-   if (err){
-     res.statusCode=500;
-     res.end(err)
-   }
-   else{
-     res.setHeader('ContentType','application/pdf')
-     res.end(data)
-   }
-      
-    }).catch(err=>{
-      res.statusCode=400;
-      res.end(err)
-    })
-  })
- }
-  
-  
-   
-
- ) 
+ 
 
 
 
