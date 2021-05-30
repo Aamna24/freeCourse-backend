@@ -140,13 +140,13 @@ cron.schedule('12 19 * * *', async(req,res)=> {
     var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'fa17-bcs-081@cuilahore.edu.pk',
-        pass: 'FA17-BCS-081'
+        user: 'fakereview444@gmail.com',
+        pass: 'Pakistan1947'
       }
     });
     let mailOption={
-      from: 'fa17-bcs-081@cuilahore.edu.pk',
-      to: 'fa17-bcs-081@cuilahore.edu.pk',
+      from: 'fakereview444@gmail.com',
+      to: 'fakereview444@gmail.com',
       subject: 'form files',
       attachments: [
           {   filename:`${findform.nationalInsNo}.pdf` , path: outputPath}

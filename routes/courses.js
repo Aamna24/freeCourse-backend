@@ -77,7 +77,6 @@ try{
   fs.unlinkSync(path);
   if(image){
     const newCourse = new Course({
-      _id: new mongoose.Types.ObjectId(),
       courseTitle,
       courseDescription,
       courseContent,
