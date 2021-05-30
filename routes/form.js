@@ -57,7 +57,6 @@ route.post('/add',upload.single('signature'), asyncHandler(async (req,res)=>{
         });
         if(image){
           const newUser = new Form({
-              _id: new mongoose.Types.ObjectId(),
               detailsFormData, personalDetails,emergencyDetails, employmentDetails, qualificationDetails, oppDetails,
           declaration,
           signature: image&& image.url,
@@ -183,10 +182,8 @@ route.post('/ids', upload.array('idPic'), async(req,res)=>{
         });
         urls.push(image)
         const newID = new ID({
-          _id: new mongoose.Types.ObjectId(),
           nationalInsNo,
           idPic: image && image.url,
-          //idPic: uploader && uploader.url
          
         });
          await newID.save();
