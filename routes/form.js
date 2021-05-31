@@ -323,4 +323,6 @@ route.post('/upload-array', upload.array('image') ,async(req,res)=>{
     })
   }
 })
+
+
 module.exports = route;

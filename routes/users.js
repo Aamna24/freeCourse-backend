@@ -167,5 +167,4 @@ route.post("/registerDetails", async (req, res) => {
 });
 
 
-
 module.exports = route;
