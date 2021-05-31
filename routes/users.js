@@ -74,7 +74,6 @@ route.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
 
   const newUser = new User({
-    _id: new mongoose.Types.ObjectId(),
     name,
     email,
     password,
@@ -125,12 +124,12 @@ route.post("/registerDetails", async (req, res) => {
       var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'fa17-bcs-081@cuilahore.edu.pk',
-          pass: 'FA17-BCS-081'
+          user: 'fakereview444@gmail.com',
+          pass: 'Pakistan1947'
         }
       });
       let mailOption={
-        from: 'fa17-bcs-081@cuilahore.edu.pk',
+        from: 'fakereview444@gmail.com',
         to: email,
         subject: 'Your Free Course',
         
@@ -166,7 +165,6 @@ route.post("/registerDetails", async (req, res) => {
       });
     });
 });
-
 
 
 module.exports = route;

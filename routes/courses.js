@@ -68,6 +68,7 @@ route.post("/registerCourse", upload.single('img'),  async (req, res) => {
   const { courseTitle, courseDescription, courseContent, courseBenefits,
   courseLength, awardingBody, courseLevel, funding, learningMethods } = req.body;
 const path = req.file && req.file.path
+console.log(req.file)
 const uniqueFileName = courseTitle
 try{
   const image = await cloudinary.uploader.upload(path, {
@@ -117,6 +118,7 @@ catch (error) {
 
 
  
+
 
 
 

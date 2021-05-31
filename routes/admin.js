@@ -35,7 +35,6 @@ route.post("/register", async (req, res) => {
     const { name, email, password } = req.body;
   
     const newAdmin = new Admin({
-      _id: new mongoose.Types.ObjectId(),
       name,
       email,
       password,
@@ -103,7 +102,6 @@ route.post("/login", async (req, res) => {
 // enter colllege data
 route.post("/college",async(req,res)=>{
   const newCollege = new College({
-    _id: new mongoose.Types.ObjectId(),
     collegeName:"Vision West Notthinghamshire College",
     contractAmount:0,
     pricePerApp:0,
