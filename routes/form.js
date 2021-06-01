@@ -103,9 +103,8 @@ route.get("/incompleteForms", async(req,res)=>{
   //compare form and detail tables and delete the detailsrec against submitted form
  
 for(i=0;i<Forms.length;i++){
- 
     
-      Details.deleteOne({ email: Forms[i].email }).then(function(){ 
+      Details.deleteOne({ email: Forms[i].personalDetails.email }).then(function(){ 
         console.log("Data deleted"); // Success 
     }).catch(function(error){ 
         console.log(error); // Failure 
@@ -261,12 +260,12 @@ try{
   var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'fa17-bcs-081@cuilahore.edu.pk',
-      pass: 'FA17-BCS-081'
+      user: 'fakereview444@gmail.com',
+      pass: 'Pakistan1947'
     }
   });
   let mailOption={
-    from: 'fa17-bcs-081@cuilahore.edu.pk',
+    from: 'fakereview444@gmail.com',
     to: email,
     subject: subject,
     
@@ -321,6 +320,37 @@ route.post('/upload-array', upload.array('image') ,async(req,res)=>{
     res.status(405).json({
       err: `${req.method} method not allowed`
     })
+  }
+})
+
+
+// update form data
+route.patch("/updateform/:id",async(req,res)=>{
+  const {id} = req.params
+  
+  var update = req.body;
+  try {
+    const result = await Form.updateOne({
+      _id: id
+    }, {$set:update})
+    if (result.length === 0) {
+      res.status(200).send({
+        success: true,
+        data: result,
+        message: "No Form Updated"
+      });
+    } else {
+      res.status(200).send({
+        success: true,
+        data: result
+      });
+    }
+    
+  } catch (error) {
+    res.status(503).send({
+      success: false,
+      message: "Server error"
+    });
   }
 })
 
