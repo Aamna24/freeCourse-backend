@@ -1,3 +1,4 @@
 {
-    "jwtPrivateKey":""
+    "jwtPrivateKey":"",
+    "mongoURI" : "mongodb+srv://johnoconsulting:Newcastle9@cluster0.btsxm.mongodb.net/freeCourse?retryWrites=true&w=majority"
 }

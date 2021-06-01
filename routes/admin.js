@@ -5,6 +5,7 @@ const Admin = require("../models/admin");
 const Form = require("../models/form")
 const jwt = require("jsonwebtoken");
 const College = require("../models/college")
+
 //Get all the user route
 route.get("/", async (req, res) => {
     try {

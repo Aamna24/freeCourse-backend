@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+var timeout = require('connect-timeout')
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const config = require("config");
@@ -21,6 +22,9 @@ const dotenv = require('dotenv')
 var nodemailer = require("nodemailer")
 var fs = require('fs');
 var fetch= require('node-fetch')
+const connectDB = require('./config/db')
+
+connectDB();
 dotenv.config()
 
 console.log('NODE_ENV: ' + config.util.getEnv('NODE_ENV'));
@@ -33,6 +37,7 @@ const port = process.env.PORT || 61500;
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+app.use(timeout('5s'))
 app.use(morgan("tiny"));
 app.use(cors());
 app.use(express.json());
@@ -264,15 +269,12 @@ transporter.sendMail(mailOption,function(err,res){
   
 })
 //-----------------------
+function haltOnTimedout (req, res, next) {
+  if (!req.timedout) next()
+}
 
 
 
-mongoose
-  .connect("mongodb+srv://johnoconsulting:Newcastle9@cluster0.btsxm.mongodb.net/freeCourse?retryWrites=true&w=majority",{
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
-  .then(success => console.log("Successfully connected to database"))
-  .catch(err => console.log("Error while connecting to database"));
+
 
 app.listen(port, () => console.log(`App listening on port : ${port}`));
