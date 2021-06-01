@@ -73,7 +73,6 @@ route.post("/login", async (req, res) => {
 
     if (getAdmin.length > 0) {
       let token = jwt.sign({ id: getAdmin[0]._id , name: getAdmin[0].name}, "secret_key");
-      console.log("token is")
       res
         .header("auth-token", token)
         .status(200)
